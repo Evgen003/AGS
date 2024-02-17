@@ -1,9 +1,5 @@
 #include "Data.h"
 
-// используемые пространства имен
-using namespace glm;
-using namespace std;
-
 LARGE_INTEGER frequency;        // частота счетчика производительности
 LARGE_INTEGER current_time;     // текущее значение счетчика производительности
 LARGE_INTEGER previous_time;    // значение счетчика производительности на предыдущем кадре
@@ -11,7 +7,18 @@ double elapsed_time;            // время, затраченное на отрисовку кадра
 double fps;                     // количество кадров в секунду
 char window_title[256];         // заголовок окна
 unsigned int timer = 0;
+// ИСПОЛЬЗУЕМЫЙ ШЕЙДЕР (ПОКА ТОЛЬКО ОДИН)
 Shader shader;
+// ДАННЫЕ ДЛЯ ВЫВОДА ПРЯМОУГОЛЬНИКА
+// текущее смещение прямоугольника
+vec2 offset = vec2(0.25, 0);
+// скорость (направление) перемещения прямоугольника
+vec2 speed = vec2(+0.30, -0.25);
+// первый цвет (для градиентной заливки)
+vec4 color1 = vec4(1, 0, 0, 1);
+// второй цвет (для градиентной заливки)
+vec4 color2 = vec4(0, 0, 1, 1);
+
 // функция для инициализации всех общих данных (камера, объекты и т.д.)
 void initData() {
 
@@ -33,14 +40,12 @@ void drawObject()
 		glBindBuffer(GL_ARRAY_BUFFER, VBO_Index);
 		GLfloat	Verteces[] = {
 
-			0.08, 0.07,
-			0.15, 0.27,
-			0.17, 0.27,
-			0.23, 0.07,
-			0.21, 0.07,
-			0.19, 0.14,
-			0.125, 0.14,
-			0.10, 0.07
+			-0.5, +0.5,
+			-0.5, -0.5,
+			+0.5, +0.5,
+			+0.5, +0.5,
+			-0.5, -0.5,
+			+0.5, -0.5
 		};
 		glBufferData(GL_ARRAY_BUFFER, sizeof(Verteces), Verteces, GL_STATIC_DRAW);
 

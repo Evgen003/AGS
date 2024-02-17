@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Display.h"
+#include "Simulation.h"
 #include "Shader.h"
 
 
@@ -22,13 +23,6 @@ void reshape(int w, int h)
 	// установить новую область просмотра, равную всей области окна
 	glViewport(0, 0, w, h);
 }
-
-// функция вызывается когда процессор простаивает, т.е. максимально часто
-void simulation()
-{
-	// перерисовать окно
-	glutPostRedisplay();
-};
 
 // основная функция
 void main(int argc, char** argv)
