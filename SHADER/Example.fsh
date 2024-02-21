@@ -1,19 +1,11 @@
 #version 330 core
 
-uniform vec4 color1;
-uniform vec4 color2;
-
-in vec2 position;
+uniform vec4 color;
 
 out vec4 fragColor;
 
-void main ()
+void main (void)
 {
 	
-	if(position.x-position.y<=0){
-		fragColor=color1;
-	}
-	else {
-		fragColor=color2;
-	}
+	fragcolor = color;
 }
