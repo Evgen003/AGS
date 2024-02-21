@@ -17,9 +17,9 @@ public:
 	// установить матрицу проекции
 	void setProjectionMatrix(float fovy, float aspect, float zNear, float zFar);
 	// получить матрицу проекции
-	glm::mat4& getProjectionMatrix();
+	mat4& getProjectionMatrix();
 	// получить матрицу вида
-	glm::mat4& getViewMatrix();
+	mat4& getViewMatrix();
 	// передвинуть камеру и точку наблюдения в горизонтальной плоскости (OXZ)
 	void moveOXZ(float dx, float dz);
 	// повернуть в горизонтальной и вертикальной плоскости (угол задается в градусах)
@@ -30,6 +30,8 @@ private:
 	// пересчитать матрицу вида
 	void recalculateViewMatrix();
 private:
-	// необходимые приватные поля класса
-	 // ...
+	mat4 projectionMatrix;
+	mat4 viewMatrix;
+	vec3 cameraPosition;
+	vec3 observationPoint;
 };
