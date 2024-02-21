@@ -23,15 +23,6 @@ extern char window_title[256]; // заголовок окна
 extern unsigned int timer;
 
 extern Shader shader;
-// ДАННЫЕ ДЛЯ ВЫВОДА ПРЯМОУГОЛЬНИКА
-// текущее смещение прямоугольника
-extern vec2 offset;
-// скорость (направление) перемещения прямоугольника
-extern vec2 speed;
-// первый цвет (для градиентной заливки)
-extern vec4 color1;
-// второй цвет (для градиентной заливки)
-extern vec4 color2;
 
 void initData();
 void drawObject();
