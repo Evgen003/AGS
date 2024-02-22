@@ -8,7 +8,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "GL/freeglut.h"
+
+#include "Camera.h"
 #include "Shader.h"
+
 
 // используемые пространства имен
 using namespace glm;
@@ -22,6 +25,7 @@ extern double fps;                     // количество кадров в секунду
 extern char window_title[256]; // заголовок окна
 extern unsigned int timer;
 
+extern Camera camera;
 extern Shader shader;
 
 void initData();

@@ -7,6 +7,9 @@
 #include "GL/freeglut.h"
 #include <glm/glm.hpp>
 #include "Data.h"
+
 extern float simulationTime;
 extern unsigned int lastClock;
 void simulation(void);
+void cameraSimulation();
+void mouseWheel(int, int, int, int);

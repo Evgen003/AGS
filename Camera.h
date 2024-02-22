@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "glew-2.1.0/include/GL/glew.h"
 #include "GL/freeglut.h"
 
@@ -34,4 +35,7 @@ private:
 	mat4 viewMatrix;
 	vec3 cameraPosition;
 	vec3 observationPoint;
+	float horizAng;
+	float vertAng;
+	float radius;
 };

@@ -7,6 +7,8 @@ double elapsed_time;            // время, затраченное на отрисовку кадра
 double fps;                     // количество кадров в секунду
 char window_title[256];         // заголовок окна
 unsigned int timer = 0;
+
+Camera camera;
 // ИСПОЛЬЗУЕМЫЙ ШЕЙДЕР (ПОКА ТОЛЬКО ОДИН)
 Shader shader;
 
