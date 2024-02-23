@@ -1,4 +1,5 @@
 #include "Shader.h"
+#define PRINT 0
 unsigned int Shader::currentProgram = 0;
 bool Shader::load(std::string veftexShaderFilename, std::string fragmentShaderFilename) {
 	program = glCreateProgram();
@@ -69,7 +70,9 @@ GLuint Shader::createShaderObject(GLenum shaderType, std::string filename) {
 	}
 	const char* source_pointer[] = { buffer };
 	glShaderSource(shader, 1, source_pointer, 0);
-	cout << buffer << endl;
+
+	if(PRINT) cout << buffer << endl;			//вывод шейдера в консоль
+
 	glCompileShader(shader);
 	GLint compileStatus;
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &compileStatus);
