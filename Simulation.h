@@ -8,8 +8,12 @@
 #include <glm/glm.hpp>
 #include "Data.h"
 
+using namespace std;
+using namespace glm;
+
 extern float simulationTime;
 extern unsigned int lastClock;
 void simulation(void);
 void cameraSimulation();
+void keyboardSurvey(float&, float&);
 void mouseWheel(int, int, int, int);

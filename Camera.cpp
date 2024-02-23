@@ -27,8 +27,6 @@ mat4& Camera::getViewMatrix() {
 }
 // передвинуть камеру и точку наблюдения в горизонтальной плоскости (OXZ)
 void Camera::moveOXZ(float dx, float dz) {
-	dx *= 0.1;
-	dz *= 0.1;
 	float angle = radians(horizAng);
 	float angle2 = radians(90 + horizAng);
 	dMove += vec3(dx * cos(angle), 0, dx * sin(angle));

@@ -1,31 +1,52 @@
 #include "Simulation.h"
-
+#define CAMERA_MOVE_SPEED 10
+#define CAMERA_ROTATE_SPEED 0.4
+#define CAMERA_ZOOM_SPEED 0.5
 float simulationTime = 0.0;
 unsigned int lastClock = clock();
 unsigned int mouseTimer = clock();
-POINT previusMouseXY;
-POINT MouseXY;
+POINT previousMouseXY;
+POINT currentMouseXY;
+float dx = 0;
+float dz = 0;
 
 void simulation() {
 	// получениче времени симуляции
 	simulationTime = float(clock() - lastClock) / CLOCKS_PER_SEC;
 	lastClock = clock();
-	// вычисление нового смещения и изменение прочих параметров
+	// работа камеры
 	cameraSimulation();
 	// перерисовать окно
 	glutPostRedisplay();
 }
 void cameraSimulation() {
+	float dx = 0;
+	float dz = 0;
+	float rx = 0;
+	float ry = 0;
+	keyboardSurvey(dx, dz);
+	camera.moveOXZ(dx * simulationTime, dz * simulationTime);
+
 	glutMouseFunc(mouseWheel);
-	if (GetAsyncKeyState(VK_RBUTTON)) {
-		if (GetCursorPos(&MouseXY)) {
-			//std::cout << MouseXY.x << "," << MouseXY.y << "\n";
-			camera.rotate((320 - MouseXY.x) / 2, (240 - MouseXY.y) / 2);
-			SetCursorPos(320, 240);
+	
+	if (!GetAsyncKeyState(VK_RBUTTON)) {
+		if (GetCursorPos(&currentMouseXY)) {
+			previousMouseXY = currentMouseXY;
 		}
 	}
-	float speed = 1 * simulationTime * 100;
-	float camRot = 2;
+	if (GetAsyncKeyState(VK_RBUTTON)) {
+		if (GetCursorPos(&currentMouseXY)) {
+			//cout << currentMouseXY.x << " | " << currentMouseXY.y << "\n";
+			if ((currentMouseXY.x != previousMouseXY.x)
+				|| (currentMouseXY.y != previousMouseXY.y)) {
+				rx = currentMouseXY.x - previousMouseXY.x;
+				ry = currentMouseXY.y - previousMouseXY.y;
+				previousMouseXY = currentMouseXY;
+				//cout << rx << " | " << ry << "\n";
+			}
+		}
+	}
+	camera.rotate(rx * CAMERA_ROTATE_SPEED, ry * CAMERA_ROTATE_SPEED);
 	if (GetAsyncKeyState(0x57)) {
 		camera.rotate(0, -0.1);
 	}
@@ -38,48 +59,33 @@ void cameraSimulation() {
 	if (GetAsyncKeyState(0x44)) {
 		camera.rotate(-0.1, 0);
 	}
-	if (GetAsyncKeyState(VK_ADD))
-	{
-		camera.zoom(-0.02);
-	}
-	if (GetAsyncKeyState(VK_SUBTRACT))
-	{
-		camera.zoom(0.02);
-	}
+}
+
+void keyboardSurvey(float& dx, float& dz) {
 	if (GetAsyncKeyState(VK_UP))
 	{
-		camera.moveOXZ(-speed, 0);
+		dx -= CAMERA_MOVE_SPEED;
 	}
 	if (GetAsyncKeyState(VK_DOWN))
 	{
-		camera.moveOXZ(speed, 0);
+		dx += CAMERA_MOVE_SPEED;
 	}
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		camera.moveOXZ(0, speed);
+		dz += CAMERA_MOVE_SPEED;
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
-		camera.moveOXZ(0, -speed);
+		dz -= CAMERA_MOVE_SPEED;
 	}
 }
 void mouseWheel(int button, int dir, int x, int y) {
+	float delta = 0;
 	if (button == 4) {
-		/*std::cout << "Scroll Up\n";
-		std::cout << "button = " << button << std::endl;
-		std::cout << "dir = " << dir << std::endl;
-		std::cout << "x = " << x << std::endl;
-		std::cout << "y = " << y << std::endl;
-		std::cout << std::endl;*/
-		camera.zoom(0.5);
+		delta += CAMERA_ZOOM_SPEED;
 	}
 	else if (button == 3) {
-		/*std::cout << "Scroll Down\n";
-		std::cout << "button = " << button << std::endl;
-		std::cout << "dir = " << dir << std::endl;
-		std::cout << "x = " << x << std::endl;
-		std::cout << "y = " << y << std::endl;
-		std::cout << std::endl;*/
-		camera.zoom(-0.5);
+		delta -= CAMERA_ZOOM_SPEED;
 	}
+	camera.zoom(delta);
 }
