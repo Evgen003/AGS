@@ -1,7 +1,8 @@
 #include "Camera.h"
 Camera::Camera() {
-	cameraPosition = vec3(2, 5, 7);
+	cameraPosition = vec3(7, 5, 7);
 	observationPoint = vec3(0, 0, 0);
+	dMove = vec3(0, 0, 0);
 	radius = length(cameraPosition - observationPoint);
 	viewMatrix = lookAt(cameraPosition, observationPoint, vec3(0, 1, 0));
 	vec3 v1 = cameraPosition;
@@ -10,7 +11,7 @@ Camera::Camera() {
 	vertAng = degrees(acos(cos_y));
 	float cos_x = dot(normalize(v2), vec3(1, 0, 0));
 	horizAng = degrees(acos(cos_x));
-	//cout << vertAng << "   " << horizAng << endl;
+	cout << vertAng << "   " << horizAng << endl;
 }
 // установить матрицу проекции
 void Camera::setProjectionMatrix(float fovy, float aspect, float zNear, float zFar) {
@@ -28,19 +29,21 @@ mat4& Camera::getViewMatrix() {
 void Camera::moveOXZ(float dx, float dz) {
 	dx *= 0.1;
 	dz *= 0.1;
-	//cout << vertAng << ' ' << horizAng << endl;
 	float angle = radians(horizAng);
 	float angle2 = radians(90 + horizAng);
-	
-	cameraPosition.x += dx * cos(angle);
-	cameraPosition.z += dx * sin(angle);
-	observationPoint.x += dx * cos(angle);
-	observationPoint.z += dx * sin(angle);
-	
-	cameraPosition.x += dz * cos(angle2);
-	cameraPosition.z += dz * sin(angle2);
-	observationPoint.x += dz * cos(angle2);
-	observationPoint.z += dz * sin(angle2);
+
+	dMove += vec3(dx * cos(angle), 0, dx * sin(angle));
+	dMove += vec3(dz * cos(angle2), 0, dz * sin(angle2));
+	cout << "DeltaMove: " << dMove.x << "  " << dMove.z << endl;
+	//cameraPosition.x += dx * cos(angle);
+	//cameraPosition.z += dx * sin(angle);
+	//observationPoint.x += dx * cos(angle);
+	//observationPoint.z += dx * sin(angle);
+	//
+	//cameraPosition.x += dz * cos(angle2);
+	//cameraPosition.z += dz * sin(angle2);
+	//observationPoint.x += dz * cos(angle2);
+	//observationPoint.z += dz * sin(angle2);
 	cout << "Move func: " << horizAng << ' ' << vertAng << ' ' << radius << endl;
 	cout << "CamPos: " << cameraPosition.x << ' ' << cameraPosition.y << ' ' << cameraPosition.z << endl;
 	cout << "ObsPoi: " << observationPoint.x << ' ' << observationPoint.y << ' ' << observationPoint.z << endl << endl;
@@ -56,11 +59,6 @@ void Camera::rotate(float horizAngle, float vertAngle) {
 	if (vertAng < 5) {
 		vertAng = 5;
 	}
-	float rad_v = radians(vertAng);
-	float rad_h = radians(horizAng);
-	cameraPosition.x = radius * sin(rad_v) * cos(rad_h);
-	cameraPosition.y = radius * cos(rad_v);
-	cameraPosition.z = radius * sin(rad_v) * sin(rad_h);
 	recalculateViewMatrix();
 	cout << "Rotate func: " << horizAng << ' ' << vertAng << ' ' << radius << endl;
 	cout << "CamPos: " << cameraPosition.x << ' ' << cameraPosition.y << ' ' << cameraPosition.z << endl;
@@ -75,11 +73,6 @@ void Camera::zoom(float dR) {
 	if (radius < 5) {
 		radius = 5;
 	}
-	float rad_v = radians(vertAng);
-	float rad_h = radians(horizAng);
-	cameraPosition.x = radius * sin(rad_v) * cos(rad_h);
-	cameraPosition.y = radius * cos(rad_v);
-	cameraPosition.z = radius * sin(rad_v) * sin(rad_h);
 	cout << "Zoom func: " << horizAng << ' ' << vertAng << ' ' << radius << endl;
 	cout << "CamPos: " << cameraPosition.x << ' ' << cameraPosition.y << ' ' << cameraPosition.z << endl;
 	cout << "ObsPoi: " << observationPoint.x << ' ' << observationPoint.y << ' ' << observationPoint.z << endl << endl;
@@ -87,5 +80,12 @@ void Camera::zoom(float dR) {
 }
 // пересчитать матрицу вида
 void Camera::recalculateViewMatrix() {
+	float rad_v = radians(vertAng);
+	float rad_h = radians(horizAng);
+	cameraPosition.x = radius * sin(rad_v) * cos(rad_h);
+	cameraPosition.y = radius * cos(rad_v);
+	cameraPosition.z = radius * sin(rad_v) * sin(rad_h);
+	cameraPosition += dMove;
+	observationPoint = dMove;
 	viewMatrix = lookAt(cameraPosition, observationPoint, vec3(0, 1, 0));
 }

@@ -35,6 +35,8 @@ private:
 	mat4 viewMatrix;
 	vec3 cameraPosition;
 	vec3 observationPoint;
+	vec3 dMove;
+	
 	float horizAng;
 	float vertAng;
 	float radius;
