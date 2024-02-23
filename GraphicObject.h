@@ -16,17 +16,17 @@ public:
 	// конструктор по умолчанию
 	GraphicObject();
 	// установить цвет объекта
-	void setColor(glm::vec4& color);
+	void setColor(vec4& color);
 	// установить позицию объекта
-	void setPosition(glm::vec3& position);
+	void setPosition(vec3& position);
 	// установить угол поворота в градусах относительно оси OY по часовой стрелке
 	void setAngle(float degree);
 	// получить различные параметры
-	glm::vec4& getColor();
-	glm::mat4& getModelMatrix();
+	vec4& getColor();
+	mat4& getModelMatrix();
 private:
 	// цвет объекта
-	glm::vec4 color;
+	vec4 color;
 	// матрица модели (задает позицию и ориентацию)
-	glm::mat4 modelMatrix;
+	mat4 modelMatrix;
 };

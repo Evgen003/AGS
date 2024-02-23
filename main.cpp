@@ -22,6 +22,8 @@ void reshape(int w, int h)
 {
 	// установить новую область просмотра, равную всей области окна
 	glViewport(0, 0, w, h);
+	// устанавливаем матрицу проекции
+	camera.setProjectionMatrix(35.0f, (float)w / h, 1.0f, 500.0f);
 }
 
 // основная функция
@@ -48,6 +50,8 @@ void main(int argc, char** argv)
 		fprintf(stderr, "Glew error: %s\n", glewGetErrorString(err));
 		return;
 	}
+
+	initData();
 
 	// определение текущей версии OpenGL
 	printf("OpenGL Version = %s\n\n", glGetString(GL_VERSION));

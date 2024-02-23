@@ -11,15 +11,24 @@ unsigned int timer = 0;
 Camera camera;
 // ИСПОЛЬЗУЕМЫЙ ШЕЙДЕР (ПОКА ТОЛЬКО ОДИН)
 Shader shader;
-
+// СПИСОК ГРАФИЧЕСКИХ ОБЪЕКТОВ ДЛЯ ВЫВОДА НА ЭКРАН
+vector <GraphicObject>graphicObjects;
 // функция для инициализации всех общих данных (камера, объекты и т.д.)
 void initData() {
-
+	float ang = 0;
+	for (int i = 0; i < 9; i++) {
+		vec4 color = vec4(1, 0, 0, 1);
+		GraphicObject obj;
+		obj.setColor(color);
+		vec3 pos = vec3((i % 3) * 2, 0, ((int)i / 3) * 2);
+		obj.setPosition(pos);
+		obj.setAngle(ang);
+		ang += 10;
+		graphicObjects.push_back(obj);
+	}
 }
 // функция для вывода квадрата с ребрами равными единице (от -0.5 до +0.5)
-void drawObject()
-{
-	
+void drawBox() {
 	// переменные для вывода объекта (прямоугольника из двух треугольников)
 	static GLuint VAO_Index = 0;	// индекс VAO-буфера
 	static GLuint VBO_Index = 0;	// индекс VBO-буфера

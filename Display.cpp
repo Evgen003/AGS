@@ -13,29 +13,29 @@ void display(void)
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
-	// формируем матрицу проекции
-	mat4 projectionMatrix;
-	projectionMatrix = perspective(radians(35.0), 800.0 / 600.0, 1.0, 100.0);
-	// матрица модели
-	mat4 modelMatrix;
-	// модель располагается в точке (1,0,0) без поворота
-	modelMatrix = mat4(
-		vec4(1, 0, 0, 0), // 1-ый столбец: направление оси X
-		vec4(0, 1, 0, 0), // 2-ой столбец: направление оси Y
-		vec4(0, 0, 1, 0), // 3-ий столбец: направление оси Z
-		vec4(0, 0, 0, 1)); // 4-ый столбец: позиция объекта (начала координат)
-	   // вычисляем матрицу наблюдения модели
-	mat4 modelViewMatrix = camera.getViewMatrix() * modelMatrix;
 	// активация шейдера
 	shader.activate();
-	// устанавливаем uniform-переменные для матриц проекции и наблюдения модели
+	
+	// устанавливаем матрицу проекции
+	mat4& projectionMatrix = camera.getProjectionMatrix();
 	shader.setUniform("projectionMatrix", projectionMatrix);
-	shader.setUniform("modelViewMatrix", modelViewMatrix);
-	// устанавливаем значение uniform-переменной для цвета каждого фрагмента
-	vec4 color = vec4(0, 0, 1, 1);
-	shader.setUniform("color", color);
-	// выводим прямоугольник 
-	drawObject();
+
+	// устанавливаем матрицу камеры
+	mat4& viewMatrix = camera.getViewMatrix();
+
+	//выводим все объекты
+	for (auto& grObj : graphicObjects) {
+		// устанавливаем матрицу наблюдения модели
+		mat4 modelViewMatrix = viewMatrix * grObj.getModelMatrix();
+		shader.setUniform("modelViewMatrix", modelViewMatrix);
+
+		// устанавливаем цвет
+		shader.setUniform("color", grObj.getColor());
+
+		//выводим модель кубика
+		drawBox();
+	}
+
 	// смена переднего и заднего буферов
 	glutSwapBuffers();
 	printFPS();

@@ -11,7 +11,7 @@
 
 #include "Camera.h"
 #include "Shader.h"
-
+#include "GraphicObject.h"
 
 // используемые пространства имен
 using namespace glm;
@@ -25,8 +25,11 @@ extern double fps;                     // количество кадров в секунду
 extern char window_title[256]; // заголовок окна
 extern unsigned int timer;
 
+// ИСПОЛЬЗУЕМАЯ КАМЕРА
 extern Camera camera;
 extern Shader shader;
+// СПИСОК ГРАФИЧЕСКИХ ОБЪЕКТОВ ДЛЯ ВЫВОДА НА ЭКРАН
+extern vector <GraphicObject>graphicObjects;
 
 void initData();
-void drawObject();
+void drawBox();
