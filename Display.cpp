@@ -1,5 +1,5 @@
 #include "Display.h"
-
+#define FPS_PRINT_TIMEOUT 0.2
 
 void display(void)
 {
@@ -52,7 +52,7 @@ void printFPS() {
 	// сохранение текущего значения счетчика производительности для следующего кадра
 	previous_time = current_time;
 
-	if (float(clock() - timer) / CLOCKS_PER_SEC > 0.1) {
+	if (float(clock() - timer) / CLOCKS_PER_SEC > FPS_PRINT_TIMEOUT) {
 		sprintf_s(window_title, "OpenGL Application - FPS: %.2f", fps);
 		glutSetWindowTitle(window_title);
 		timer = clock();
