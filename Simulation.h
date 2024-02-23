@@ -15,5 +15,6 @@ extern float simulationTime;
 extern unsigned int lastClock;
 void simulation(void);
 void cameraSimulation();
-void keyboardSurvey(float&, float&);
+void keyboard(float&, float&);
+void mouse(float&, float&);
 void mouseWheel(int, int, int, int);

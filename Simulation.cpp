@@ -24,11 +24,33 @@ void cameraSimulation() {
 	float dz = 0;
 	float rx = 0;
 	float ry = 0;
-	keyboardSurvey(dx, dz);
-	camera.moveOXZ(dx * simulationTime, dz * simulationTime);
 
+	keyboard(dx, dz);
+	camera.moveOXZ(dx * simulationTime, dz * simulationTime);
+	mouse(rx, ry);
+	camera.rotate(rx * CAMERA_ROTATE_SPEED, ry * CAMERA_ROTATE_SPEED);
 	glutMouseFunc(mouseWheel);
-	
+}
+
+void keyboard(float& dx, float& dz) {
+	if (GetAsyncKeyState(VK_UP))
+	{
+		dx -= CAMERA_MOVE_SPEED;
+	}
+	if (GetAsyncKeyState(VK_DOWN))
+	{
+		dx += CAMERA_MOVE_SPEED;
+	}
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+		dz += CAMERA_MOVE_SPEED;
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		dz -= CAMERA_MOVE_SPEED;
+	}
+}
+void mouse(float& rx, float& ry) {
 	if (!GetAsyncKeyState(VK_RBUTTON)) {
 		if (GetCursorPos(&currentMouseXY)) {
 			previousMouseXY = currentMouseXY;
@@ -45,38 +67,6 @@ void cameraSimulation() {
 				//cout << rx << " | " << ry << "\n";
 			}
 		}
-	}
-	camera.rotate(rx * CAMERA_ROTATE_SPEED, ry * CAMERA_ROTATE_SPEED);
-	if (GetAsyncKeyState(0x57)) {
-		camera.rotate(0, -0.1);
-	}
-	if (GetAsyncKeyState(0x53)) {
-		camera.rotate(0, 0.1);
-	}
-	if (GetAsyncKeyState(0x41)) {
-		camera.rotate(0.1, 0);
-	}
-	if (GetAsyncKeyState(0x44)) {
-		camera.rotate(-0.1, 0);
-	}
-}
-
-void keyboardSurvey(float& dx, float& dz) {
-	if (GetAsyncKeyState(VK_UP))
-	{
-		dx -= CAMERA_MOVE_SPEED;
-	}
-	if (GetAsyncKeyState(VK_DOWN))
-	{
-		dx += CAMERA_MOVE_SPEED;
-	}
-	if (GetAsyncKeyState(VK_LEFT))
-	{
-		dz += CAMERA_MOVE_SPEED;
-	}
-	if (GetAsyncKeyState(VK_RIGHT))
-	{
-		dz -= CAMERA_MOVE_SPEED;
 	}
 }
 void mouseWheel(int button, int dir, int x, int y) {
