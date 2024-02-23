@@ -1,6 +1,6 @@
 #include "Camera.h"
 Camera::Camera() {
-	cameraPosition = vec3(0, 5, 7);
+	cameraPosition = vec3(2, 5, 7);
 	observationPoint = vec3(0, 0, 0);
 	radius = length(cameraPosition - observationPoint);
 	viewMatrix = lookAt(cameraPosition, observationPoint, vec3(0, 1, 0));
@@ -10,7 +10,7 @@ Camera::Camera() {
 	vertAng = degrees(acos(cos_y));
 	float cos_x = dot(normalize(v2), vec3(1, 0, 0));
 	horizAng = degrees(acos(cos_x));
-	cout << vertAng << "   " << horizAng << endl;
+	//cout << vertAng << "   " << horizAng << endl;
 }
 // установить матрицу проекции
 void Camera::setProjectionMatrix(float fovy, float aspect, float zNear, float zFar) {
@@ -41,7 +41,9 @@ void Camera::moveOXZ(float dx, float dz) {
 	cameraPosition.z += dz * sin(angle2);
 	observationPoint.x += dz * cos(angle2);
 	observationPoint.z += dz * sin(angle2);
-
+	cout << "Move func: " << horizAng << ' ' << vertAng << ' ' << radius << endl;
+	cout << "CamPos: " << cameraPosition.x << ' ' << cameraPosition.y << ' ' << cameraPosition.z << endl;
+	cout << "ObsPoi: " << observationPoint.x << ' ' << observationPoint.y << ' ' << observationPoint.z << endl << endl;
 	recalculateViewMatrix();
 }
 // повернуть в горизонтальной и вертикальной плоскости (угол задается в градусах)
@@ -60,6 +62,9 @@ void Camera::rotate(float horizAngle, float vertAngle) {
 	cameraPosition.y = radius * cos(rad_v);
 	cameraPosition.z = radius * sin(rad_v) * sin(rad_h);
 	recalculateViewMatrix();
+	cout << "Rotate func: " << horizAng << ' ' << vertAng << ' ' << radius << endl;
+	cout << "CamPos: " << cameraPosition.x << ' ' << cameraPosition.y << ' ' << cameraPosition.z << endl;
+	cout << "ObsPoi: " << observationPoint.x << ' ' << observationPoint.y << ' ' << observationPoint.z << endl << endl;
 }
 // приблизить/удалить камеру к/от точки наблюдения
 void Camera::zoom(float dR) {
@@ -75,6 +80,9 @@ void Camera::zoom(float dR) {
 	cameraPosition.x = radius * sin(rad_v) * cos(rad_h);
 	cameraPosition.y = radius * cos(rad_v);
 	cameraPosition.z = radius * sin(rad_v) * sin(rad_h);
+	cout << "Zoom func: " << horizAng << ' ' << vertAng << ' ' << radius << endl;
+	cout << "CamPos: " << cameraPosition.x << ' ' << cameraPosition.y << ' ' << cameraPosition.z << endl;
+	cout << "ObsPoi: " << observationPoint.x << ' ' << observationPoint.y << ' ' << observationPoint.z << endl << endl;
 	recalculateViewMatrix();
 }
 // пересчитать матрицу вида

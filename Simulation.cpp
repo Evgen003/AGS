@@ -18,14 +18,34 @@ void simulation() {
 void cameraSimulation() {
 	glutMouseFunc(mouseWheel);
 	if (GetAsyncKeyState(VK_RBUTTON)) {
-
-		if ((float(clock() - mouseTimer) / CLOCKS_PER_SEC) > 0.01 && GetCursorPos(&MouseXY)) {
-			camera.rotate(previusMouseXY.x - MouseXY.x, previusMouseXY.y - MouseXY.y);
-			previusMouseXY = MouseXY;
-			mouseTimer = clock();
+		if (GetCursorPos(&MouseXY)) {
+			//std::cout << MouseXY.x << "," << MouseXY.y << "\n";
+			camera.rotate((320 - MouseXY.x) / 2, (240 - MouseXY.y) / 2);
+			SetCursorPos(320, 240);
 		}
 	}
 	float speed = 1 * simulationTime * 100;
+	float camRot = 2;
+	if (GetAsyncKeyState(0x57)) {
+		camera.rotate(0, -0.1);
+	}
+	if (GetAsyncKeyState(0x53)) {
+		camera.rotate(0, 0.1);
+	}
+	if (GetAsyncKeyState(0x41)) {
+		camera.rotate(0.1, 0);
+	}
+	if (GetAsyncKeyState(0x44)) {
+		camera.rotate(-0.1, 0);
+	}
+	if (GetAsyncKeyState(VK_ADD))
+	{
+		camera.zoom(-0.02);
+	}
+	if (GetAsyncKeyState(VK_SUBTRACT))
+	{
+		camera.zoom(0.02);
+	}
 	if (GetAsyncKeyState(VK_UP))
 	{
 		camera.moveOXZ(-speed, 0);
