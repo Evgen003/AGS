@@ -28,7 +28,7 @@ void cameraSimulation() {
 	keyboard(dx, dz);
 	camera.moveOXZ(dx * simulationTime, dz * simulationTime);
 	mouse(rx, ry);
-	camera.rotate(rx * CAMERA_ROTATE_SPEED, ry * CAMERA_ROTATE_SPEED);
+	camera.rotate(rx * CAMERA_ROTATE_SPEED, -ry * CAMERA_ROTATE_SPEED);
 	glutMouseFunc(mouseWheel);
 }
 
