@@ -18,12 +18,18 @@ void initData() {
 	float ang = 0;
 	for (int i = 0; i < 9; i++) {
 		vec4 color = vec4(1, 0, 0, 1);
+		vec4 color2 = vec4(0, 0, 1, 1);
 		GraphicObject obj;
-		obj.setColor(color);
+		if (i == 4) { 
+			obj.setColor(color2);
+		}
+		else {
+			obj.setColor(color);
+		}
 		vec3 pos = vec3((i % 3) * 2, 0, ((int)i / 3) * 2);
 		obj.setPosition(pos);
 		obj.setAngle(ang);
-		ang += 10;
+		ang += 15;
 		graphicObjects.push_back(obj);
 	}
 }
