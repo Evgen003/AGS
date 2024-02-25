@@ -150,6 +150,7 @@
     <ClCompile Include="GraphicObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Simulation.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Display.h" />
     <ClInclude Include="GraphicObject.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Simulation.h" />
   </ItemGroup>

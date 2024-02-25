@@ -20,20 +20,22 @@ void display(void)
 	mat4& projectionMatrix = camera.getProjectionMatrix();
 	shader.setUniform("projectionMatrix", projectionMatrix);
 
-	// устанавливаем матрицу камеры
+	// получаем матрицу камеры
 	mat4& viewMatrix = camera.getViewMatrix();
 
 	//выводим все объекты
-	for (auto& grObj : graphicObjects) {
+	for (auto& graphicObject : graphicObjects) {
 		// устанавливаем матрицу наблюдения модели
-		mat4 modelViewMatrix = viewMatrix * grObj.getModelMatrix();
+		mat4 modelViewMatrix = viewMatrix * graphicObject.getModelMatrix();
 		shader.setUniform("modelViewMatrix", modelViewMatrix);
 
 		// устанавливаем цвет
-		shader.setUniform("color", grObj.getColor());
+		shader.setUniform("color", graphicObject.getColor());
 
-		//выводим модель кубика
-		drawBox();
+		//выводим меш
+		int meshId = graphicObject.getMeshId();
+		Mesh* mesh = ResourceManager::instance().getMesh(meshId);
+		if (mesh != nullptr) mesh->drawOne();
 	}
 
 	// смена переднего и заднего буферов

@@ -7,13 +7,14 @@ GraphicObject::GraphicObject() {
 		vec4(0, 0, 1, 0), // 3-ий столбец: направление оси Z
 		vec4(0, 0, 0, 1)); // 4-ый столбец: позиция объекта (начала координат)
 	color = vec4(1, 1, 1, 1);
+	meshId = 0;
 }
 // установить цвет объекта
-void GraphicObject::setColor(vec4& color) {
+void GraphicObject::setColor(vec4 color) {
 	this->color = color;
 }
 // установить позицию объекта
-void GraphicObject::setPosition(vec3& position) {
+void GraphicObject::setPosition(vec3 position) {
 	modelMatrix[3][0] = position.x;
 	modelMatrix[3][1] = position.y;
 	modelMatrix[3][2] = position.z;	
@@ -26,10 +27,17 @@ void GraphicObject::setAngle(float degree) {
 	modelMatrix[2][0] = -sin(rad);
 	modelMatrix[2][2] = cos(rad);
 }
+// установить идентификатор используемого меша
+void GraphicObject::setMeshId(int id) {
+	meshId = id;
+}
 // получить различные параметры
 vec4& GraphicObject::getColor() {
 	return color;
 }
 mat4& GraphicObject::getModelMatrix() {
 	return modelMatrix;
+}
+int GraphicObject::getMeshId() {
+	return meshId;
 }

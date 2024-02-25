@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "Shader.h"
 #include "GraphicObject.h"
+#include "ResourceManager.h"
 
 // используемые пространства имен
 using namespace glm;
@@ -32,4 +33,5 @@ extern Shader shader;
 extern vector <GraphicObject>graphicObjects;
 
 void initData();
+void initGraphicObjects();
 void drawBox();

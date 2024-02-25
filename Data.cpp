@@ -15,24 +15,61 @@ Shader shader;
 vector <GraphicObject>graphicObjects;
 // функция для инициализации всех общих данных (камера, объекты и т.д.)
 void initData() {
-	float ang = 0;
-	for (int i = 0; i < 9; i++) {
-		vec4 color = vec4(1, 0, 0, 1);
-		vec4 color2 = vec4(0, 0, 1, 1);
-		GraphicObject obj;
-		if (i == 4) { 
-			obj.setColor(color2);
-		}
-		else {
-			obj.setColor(color);
-		}
-		vec3 pos = vec3((i % 3) * 2, 0, ((int)i / 3) * 2);
-		obj.setPosition(pos);
-		obj.setAngle(ang);
-		ang += 15;
-		graphicObjects.push_back(obj);
-	}
+	initGraphicObjects();
 }
+
+// вспомогательная функция для инициализации графических объектов
+void initGraphicObjects() {
+	// ссылка на менеджер ресурсов (для удобства)
+	ResourceManager& rm = ResourceManager::instance();
+	// временная переменная для хранения идентификаторов меша
+	int meshId = -1;
+	// временная переменная для представления графического объекта
+	GraphicObject graphicObject;
+	// добавление графического объекта
+	meshId = rm.loadMesh("MESHES\\buildings\\house_2.obj");
+	graphicObject.setMeshId(meshId);
+	graphicObject.setColor(vec4(0.2, 0.2, 0.2, 1));
+	graphicObject.setPosition(vec3(0, 0, 0));
+	graphicObject.setAngle(0.0);
+	graphicObjects.push_back(graphicObject);
+	// добавление графического объекта
+	meshId = rm.loadMesh("MESHES\\natures\\big_tree.obj");
+	graphicObject.setMeshId(meshId);
+	graphicObject.setColor(vec4(0.2, 0.8, 0.2, 1));
+	graphicObject.setPosition(vec3(7.5, -0.75, 2.5));
+	graphicObject.setAngle(0.0);
+	graphicObjects.push_back(graphicObject);
+	// добавление графического объекта
+	meshId = rm.loadMesh("MESHES\\natures\\big_tree.obj");
+	graphicObject.setMeshId(meshId);
+	graphicObject.setColor(vec4(0.2, 0.8, 0.2, 1));
+	graphicObject.setPosition(vec3(-7.5, -0.75, 2.5));
+	graphicObject.setAngle(0.0);
+	graphicObjects.push_back(graphicObject);
+	// добавление графического объекта
+	meshId = rm.loadMesh("MESHES\\vehicles\\police_car.obj");
+	graphicObject.setMeshId(meshId);
+	graphicObject.setColor(vec4(0.2, 0.2, 1.0, 1));
+	graphicObject.setPosition(vec3(+4.5, -2.15, +6.5));
+	graphicObject.setAngle(-115.0);
+	graphicObjects.push_back(graphicObject);
+	// добавление графического объекта
+	meshId = rm.loadMesh("MESHES\\vehicles\\police_car.obj");
+	graphicObject.setMeshId(meshId);
+	graphicObject.setColor(vec4(0.23, 0.23, 1.0, 1));
+	graphicObject.setPosition(vec3(+4.25, -2.15, +10.5));
+	graphicObject.setAngle(+105.0);
+	graphicObjects.push_back(graphicObject);
+	// добавление графического объекта
+	meshId = rm.loadMesh("MESHES\\vehicles\\jeep.obj");
+	graphicObject.setMeshId(meshId);
+	graphicObject.setColor(vec4(0.95, 0.13, 0.13, 1));
+	graphicObject.setPosition(vec3(-1.25, -2.15, +9.0));
+	graphicObject.setAngle(+170.0);
+	graphicObjects.push_back(graphicObject);
+}
+
 // функция для вывода квадрата с ребрами равными единице (от -0.5 до +0.5)
 void drawBox() {
 	// переменные для вывода объекта (прямоугольника из двух треугольников)
