@@ -35,7 +35,10 @@ void display(void)
 		//выводим меш
 		int meshId = graphicObject.getMeshId();
 		Mesh* mesh = ResourceManager::instance().getMesh(meshId);
-		if (mesh != nullptr) mesh->drawOne();
+		if (mesh != nullptr) {
+			mesh->drawOne();
+			cout << "Mesh draw\n";
+		}
 	}
 
 	// смена переднего и заднего буферов
