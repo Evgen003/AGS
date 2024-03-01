@@ -85,40 +85,34 @@ bool Mesh::load(string filename) {
 			indices.push_back(vertices.size() - 1);
 		}
 	}
-
 	vertexCount = indices.size();
-
-	/*glGenVertexArrays(1, &vao);
+	
+	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),
-		&vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex),
+		&vertices[0], GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+		(GLvoid*)0);
+	
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+		(GLvoid*)offsetof(Vertex, normal));
+
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+		(GLvoid*)offsetof(Vertex, texCoord));
 
 	glGenBuffers(1, &indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),
-		&indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()
+		* sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(vertexBuffer);
-	glVertexAttribPointer(vertexBuffer, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
-		(void*)offsetof(Vertex, coord));
-
-	glBindVertexArray(0);*/
-
-	glGenBuffers(1, &vertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
-
-	glGenBuffers(1, &indexBuffer);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indices.size(), indices.data(), GL_STATIC_DRAW);
-	vertexCount = indices.size();
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
+	glBindVertexArray(0);
 	return true;
 }
 vec3 Mesh::getVec3(string inLine) {
@@ -170,27 +164,7 @@ ivec3* Mesh::getPolygon(string inLine) {
 	return vec;
 }
 void Mesh::drawOne() {
-	/*glBindVertexArray(vao);
+	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);*/
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-
-	glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (void*)offsetof(Vertex, coord));
-	glNormalPointer(GL_FLOAT, sizeof(Vertex), (void*)offsetof(Vertex, normal));
-	glTexCoordPointer(3, GL_FLOAT, sizeof(Vertex), (void*)offsetof(Vertex, texCoord));
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-
-	glDrawElements(GL_TRIANGLES, vertexCount, GL_UNSIGNED_INT, 0);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glBindVertexArray(0);
 }

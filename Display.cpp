@@ -37,7 +37,6 @@ void display(void)
 		Mesh* mesh = ResourceManager::instance().getMesh(meshId);
 		if (mesh != nullptr) {
 			mesh->drawOne();
-			cout << "Mesh draw\n";
 		}
 	}
 
