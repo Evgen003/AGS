@@ -20,3 +20,25 @@ Mesh* ResourceManager::getMesh(int index) {
 		return &(meshes[index]);
 	}
 }
+
+int ResourceManager::loadTexture(string filename) {
+	if (textures_id.count(filename)) {
+		return textures_id[filename];
+	}
+	else {
+		Texture texture;
+		texture.load(filename);
+		textures.push_back(texture);
+		textures_id.insert(pair<string, int>(filename, textures.size() - 1));
+		return textures_id[filename];
+	}
+}
+
+Texture* ResourceManager::getTexture(int index) {
+	if (index >= textures.size()) {
+		return nullptr;
+	}
+	else {
+		return &(textures[index]);
+	}
+}

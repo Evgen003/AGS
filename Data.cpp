@@ -24,11 +24,15 @@ void initGraphicObjects() {
 	ResourceManager& rm = ResourceManager::instance();
 	// временная переменная для хранения идентификаторов меша
 	int meshId = -1;
+	// временная переменная для хранения идентификаторов текстуры
+	int textureId = -1;
 	// временная переменная для представления графического объекта
 	GraphicObject graphicObject;
 	// добавление графического объекта
 	meshId = rm.loadMesh("MESHES\\buildings\\house_2.obj");
 	graphicObject.setMeshId(meshId);
+	textureId = rm.loadTexture("TEXTURES\\buildings\\house_2_orange.png");
+	graphicObject.setTextureId(textureId);
 	graphicObject.setColor(vec4(0.2, 0.2, 0.2, 1));
 	graphicObject.setPosition(vec3(0, 0, 0));
 	graphicObject.setAngle(0.0);

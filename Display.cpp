@@ -32,6 +32,13 @@ void display(void)
 		// устанавливаем цвет
 		shader.setUniform("color", graphicObject.getColor());
 
+		// устанавливаем текстуру (привязываем к текстурному блоку)
+		int textureId = graphicObject.getTextureId();
+		Texture* texture = ResourceManager::instance().getTexture(textureId);
+		if (texture != nullptr) {
+			texture->bind(GL_TEXTURE0);
+		}
+
 		//выводим меш
 		int meshId = graphicObject.getMeshId();
 		Mesh* mesh = ResourceManager::instance().getMesh(meshId);

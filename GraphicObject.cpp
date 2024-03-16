@@ -31,6 +31,10 @@ void GraphicObject::setAngle(float degree) {
 void GraphicObject::setMeshId(int id) {
 	meshId = id;
 }
+// установить идентификатор используемой текстуры
+void  GraphicObject::setTextureId(int id) {
+	textureId = id;
+}
 // получить различные параметры
 vec4& GraphicObject::getColor() {
 	return color;
@@ -40,4 +44,7 @@ mat4& GraphicObject::getModelMatrix() {
 }
 int GraphicObject::getMeshId() {
 	return meshId;
+}
+int GraphicObject::getTextureId() {
+	return textureId;
 }
