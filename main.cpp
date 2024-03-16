@@ -58,11 +58,7 @@ void main(int argc, char** argv)
 
 	// определение текущей версии OpenGL
 	printf("OpenGL Version = %s\n\n", glGetString(GL_VERSION));
-
-	// загрузка шейдера
-	shader.load("SHADER\\Example.vsh", "SHADER\\Example.fsh");
-
-
+	
 	// инициализация библиотеки DevIL для загрузки изображений
 	ilInit();
 	iluInit();

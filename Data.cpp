@@ -8,13 +8,13 @@ double fps;                     // количество кадров в секунду
 char window_title[256];         // заголовок окна
 unsigned int timer = 0;
 
-Camera camera;
-// ИСПОЛЬЗУЕМЫЙ ШЕЙДЕР (ПОКА ТОЛЬКО ОДИН)
 Shader shader;
+Camera camera;
 // СПИСОК ГРАФИЧЕСКИХ ОБЪЕКТОВ ДЛЯ ВЫВОДА НА ЭКРАН
 vector <GraphicObject>graphicObjects;
 // функция для инициализации всех общих данных (камера, объекты и т.д.)
 void initData() {
+	RenderManager::instance().init();
 	initGraphicObjects();
 }
 

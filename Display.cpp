@@ -3,53 +3,19 @@
 
 void display(void)
 {
-	// очистка буфера кадра
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// включение теста глубины (на всякий случай)
-	glEnable(GL_DEPTH_TEST);
-	// вывод полигонов в виде линий с отсечением нелицевых граней
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
-
-	// активация шейдера
-	shader.activate();
+	// для удобства определяем ссылку на RenderManager
+	RenderManager& renderManager = RenderManager::instance();
+	renderManager.setCamera(&camera);
+	// начинаем вывод нового кадра
+	renderManager.start();
 	
-	// устанавливаем матрицу проекции
-	mat4& projectionMatrix = camera.getProjectionMatrix();
-	shader.setUniform("projectionMatrix", projectionMatrix);
-
-	// получаем матрицу камеры
-	mat4& viewMatrix = camera.getViewMatrix();
-
-	//выводим все объекты
+	// добавляем в очередь все объекты, которые необходимо вывести
 	for (auto& graphicObject : graphicObjects) {
-		// устанавливаем матрицу наблюдения модели
-		mat4 modelViewMatrix = viewMatrix * graphicObject.getModelMatrix();
-		shader.setUniform("modelViewMatrix", modelViewMatrix);
-
-		// устанавливаем цвет
-		shader.setUniform("color", graphicObject.getColor());
-
-		// устанавливаем текстуру (привязываем к текстурному блоку)
-		int textureId = graphicObject.getTextureId();
-		Texture* texture = ResourceManager::instance().getTexture(textureId);
-		if (texture != nullptr) {
-			texture->bind(GL_TEXTURE0);
-		}
-
-		// uniform-переменная texture_0 связанна с нулевым текстурным блоком
-		shader.setUniform("texture_0", 0);
-
-		//выводим меш
-		int meshId = graphicObject.getMeshId();
-		Mesh* mesh = ResourceManager::instance().getMesh(meshId);
-		if (mesh != nullptr) {
-			mesh->drawOne();
-		}
-		//Texture::disableAll();
+		renderManager.addToRenderQueue(graphicObject);
 	}
+
+	// завершаем построение кадра
+	renderManager.finish();
 
 	// смена переднего и заднего буферов
 	glutSwapBuffers();
