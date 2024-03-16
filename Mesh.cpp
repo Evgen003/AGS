@@ -11,11 +11,14 @@ bool Mesh::load(std::string filename)
     std::vector<GLuint> indices;
 
     std::ifstream file(filename);
-    if (!file.is_open())
-    {
-        // ќбработка ошибки открыти¤ файла
-        return -1;
+    if (!file.is_open()) {
+        cout << "Error '" << filename << "' mesh file\n";
+        return false;
     }
+    else {
+        cout << "Mesh file '" << filename << "' open\n";
+    }
+
 
     std::vector<glm::vec3> v;
     std::vector<glm::vec3> n;

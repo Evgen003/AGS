@@ -51,13 +51,13 @@ void main(int argc, char** argv)
 		return;
 	}
 
-	initData();
-
 	// определение текущей версии OpenGL
 	printf("OpenGL Version = %s\n\n", glGetString(GL_VERSION));
 
 	// загрузка шейдера
 	shader.load("SHADER\\Example.vsh", "SHADER\\Example.fsh");
+
+	initData();
 
 	// устанавливаем функцию, которая будет вызываться для перерисовки окна
 	glutDisplayFunc(display);

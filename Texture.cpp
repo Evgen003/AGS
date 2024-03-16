@@ -13,8 +13,14 @@ void Texture::load(std::string filename) {
 	wchar_t unicodeString[256];
 	wsprintf(unicodeString, L"%S", filename.c_str());
 	bool result = ilLoadImage(unicodeString);
-	if (result) cout << "Texture " << filename << " open success\n";
-	else cout << "Texture " << filename << " ERROR\n";
+	cout << "BindIMG\n";
+	if (result) {
+		cout << "Texture " << filename << " open success\n";
+	}
+	else {
+		cout << "Texture " << filename << " ERROR\n";
+		return;
+	}
 	int width = ilGetInteger(IL_IMAGE_WIDTH);
 	int	height = ilGetInteger(IL_IMAGE_HEIGHT);
 	int	format = ilGetInteger(IL_IMAGE_FORMAT);
