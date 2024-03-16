@@ -33,12 +33,32 @@ int ResourceManager::loadTexture(string filename) {
 		return textures_id[filename];
 	}
 }
-
 Texture* ResourceManager::getTexture(int index) {
 	if (index >= textures.size()) {
 		return nullptr;
 	}
 	else {
 		return &(textures[index]);
+	}
+}
+
+int ResourceManager::loadMaterial(string filename) {
+	if (materials_id.count(filename)) {
+		return materials_id[filename];
+	}
+	else {
+		Material mater;
+		mater.loadFromJson(filename);
+		materials.push_back(mater);
+		materials_id.insert(pair<string, int>(filename, materials.size() - 1));
+		return materials_id[filename];
+	}
+}
+Material* ResourceManager::getMaterial(int index) {
+	if (index >= materials.size()) {
+		return nullptr;
+	}
+	else {
+		return &(materials[index]);
 	}
 }

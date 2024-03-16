@@ -8,6 +8,8 @@ GraphicObject::GraphicObject() {
 		vec4(0, 0, 0, 1)); // 4-ый столбец: позиция объекта (начала координат)
 	color = vec4(1, 1, 1, 1);
 	meshId = 0;
+	textureId = 0;
+	materialId = 0;
 }
 // установить цвет объекта
 void GraphicObject::setColor(vec4 color) {
@@ -32,8 +34,12 @@ void GraphicObject::setMeshId(int id) {
 	meshId = id;
 }
 // установить идентификатор используемой текстуры
-void  GraphicObject::setTextureId(int id) {
+void GraphicObject::setTextureId(int id) {
 	textureId = id;
+}
+// установить идентификатор используемого материала
+void GraphicObject::setMaterialId(int id) {
+	materialId = id;
 }
 // получить различные параметры
 vec4& GraphicObject::getColor() {
@@ -47,4 +53,7 @@ int GraphicObject::getMeshId() {
 }
 int GraphicObject::getTextureId() {
 	return textureId;
+}
+int GraphicObject::getMaterialId() {
+	return materialId;
 }

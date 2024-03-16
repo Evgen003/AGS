@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "GL/freeglut.h"
 
+#include "Light.h"
 #include "Camera.h"
 #include "Shader.h"
 #include "GraphicObject.h"
@@ -29,7 +30,7 @@ extern unsigned int timer;
 
 // хяонкэгселюъ йюлепю
 extern Camera camera;
-extern Shader shader;
+extern Light light;
 // яохянй цпютхвеяйху назейрнб дкъ бшбндю мю щйпюм
 extern vector <GraphicObject>graphicObjects;
 

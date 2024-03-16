@@ -25,16 +25,21 @@ public:
 	void setMeshId(int id);
 	// установить идентификатор используемой текстуры
 	void setTextureId(int id);
+	// установить идентификатор используемого материала
+	void setMaterialId(int id);
 	// получить различные параметры
 	vec4& getColor();
 	mat4& getModelMatrix();
 	int getMeshId();
 	int getTextureId();
+	int getMaterialId();
 private:
 	// идентификатор используемого меша
 	int meshId;
 	// идентификатор используемой текстуры
 	int textureId;
+	// идентификатор используемого материала
+	int materialId;
 	// цвет объекта
 	vec4 color;
 	// матрица модели (задает позицию и ориентацию)

@@ -8,8 +8,8 @@ double fps;                     // количество кадров в секунду
 char window_title[256];         // заголовок окна
 unsigned int timer = 0;
 
-Shader shader;
 Camera camera;
+Light light;
 // СПИСОК ГРАФИЧЕСКИХ ОБЪЕКТОВ ДЛЯ ВЫВОДА НА ЭКРАН
 vector <GraphicObject>graphicObjects;
 // функция для инициализации всех общих данных (камера, объекты и т.д.)
@@ -26,6 +26,8 @@ void initGraphicObjects() {
 	int meshId = -1;
 	// временная переменная для хранения идентификаторов текстуры
 	int textureId = -1;
+	// временная переменная для хранения идентификаторов материала
+	int materialId = -1;
 	// временная переменная для представления графического объекта
 	GraphicObject graphicObject;
 	// добавление графического объекта
@@ -33,10 +35,15 @@ void initGraphicObjects() {
 	graphicObject.setMeshId(meshId);
 	textureId = rm.loadTexture("TEXTURES\\buildings\\house_2_orange.png");
 	graphicObject.setTextureId(textureId);
+	materialId = rm.loadMaterial("MATERIALS\\shiny_material.json");
+	graphicObject.setMaterialId(materialId);
 	graphicObject.setColor(vec4(0.2, 0.2, 0.2, 1));
 	graphicObject.setPosition(vec3(0, 0, 0));
 	graphicObject.setAngle(0.0);
 	graphicObjects.push_back(graphicObject);
+	
+	graphicObject.setMaterialId(-1);
+	
 	// добавление графического объекта
 	meshId = rm.loadMesh("MESHES\\natures\\big_tree.obj");
 	graphicObject.setMeshId(meshId);

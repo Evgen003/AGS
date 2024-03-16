@@ -12,7 +12,7 @@ void RenderManager::init() {
 // Начало вывода очередного кадра (подготовка, очистка вектора графических объектов)
 void RenderManager::start() {
 	// очистка буфера кадра
-	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glClearColor(0.7, 0.7, 0.7, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// включение теста глубины (на всякий случай)
 	glEnable(GL_DEPTH_TEST);
@@ -27,6 +27,13 @@ void RenderManager::start() {
 	mat4& projectionMatrix = camera->getProjectionMatrix();
 	shaders[0].setUniform("projectionMatrix", projectionMatrix);
 
+	//устанавливаем параметры света
+	shaders[0].setUniform("lAmbient", light.getAmbient());
+	shaders[0].setUniform("lDiffuse", light.getDiffuse());
+	shaders[0].setUniform("lSpecular", light.getSpecular());
+	shaders[0].setUniform("lPosition", light.getDirection());
+	
+	//очистка вектора объектов
 	graphicObjects.clear();
 }
 // установка используемой камеры
@@ -46,8 +53,14 @@ void RenderManager::finish() {
 		mat4 modelViewMatrix = viewMatrix * graphicObject.getModelMatrix();
 		shaders[0].setUniform("modelViewMatrix", modelViewMatrix);
 
-		// устанавливаем цвет
-		shaders[0].setUniform("color", graphicObject.getColor());
+		int materialId = graphicObject.getMaterialId();
+		Material* mater = ResourceManager::instance().getMaterial(materialId);
+		if (mater != nullptr) {
+			shaders[0].setUniform("mAmbient", mater->getAmbient());
+			shaders[0].setUniform("mDiffuse", mater->getDiffuse());
+			shaders[0].setUniform("mSpecular", mater->getSpecular());
+			shaders[0].setUniform("mShininess", mater->getShininess());
+		}
 
 		// устанавливаем текстуру (привязываем к текстурному блоку)
 		int textureId = graphicObject.getTextureId();

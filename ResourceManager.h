@@ -16,6 +16,7 @@
 
 #include "Mesh.h"
 #include "Texture.h"
+#include "Material.h"
 using namespace std;
 using namespace glm;
 
@@ -39,6 +40,9 @@ public:
 
 	int loadTexture(string);
 	Texture* getTexture(int);
+
+	int loadMaterial(string);
+	Material* getMaterial(int);
 private:
 	// конструктор по умолчанию (объявлен приватным)
 	// в результате нельзя создать ни одного объекта данного класса вне самого класса
@@ -49,11 +53,14 @@ private:
 	ResourceManager& operator=(const ResourceManager& v) = delete;
 private:
 	// вектор для хранения всех мешей
-	std::vector<Mesh> meshes;
+	vector<Mesh> meshes;
 	// map для хранения соответствия между именем запрашиваемого файла
 	// и индексом в контейнере meshes
-	std::map <std::string, int> meshes_id;
-
+	map <std::string, int> meshes_id;
+	
 	vector<Texture> textures;
 	map<string, int> textures_id;
+
+	vector<Material> materials;
+	map<string, int> materials_id;
 };
