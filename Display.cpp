@@ -9,9 +9,9 @@ void display(void)
 	// включение теста глубины (на всякий случай)
 	glEnable(GL_DEPTH_TEST);
 	// вывод полигонов в виде линий с отсечением нелицевых граней
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
 
 	// активация шейдера
 	shader.activate();
@@ -39,12 +39,16 @@ void display(void)
 			texture->bind(GL_TEXTURE0);
 		}
 
+		// uniform-переменная texture_0 связанна с нулевым текстурным блоком
+		shader.setUniform("texture_0", 0);
+
 		//выводим меш
 		int meshId = graphicObject.getMeshId();
 		Mesh* mesh = ResourceManager::instance().getMesh(meshId);
 		if (mesh != nullptr) {
 			mesh->drawOne();
 		}
+		//Texture::disableAll();
 	}
 
 	// смена переднего и заднего буферов

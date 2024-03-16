@@ -40,6 +40,8 @@ void initGraphicObjects() {
 	// добавление графического объекта
 	meshId = rm.loadMesh("MESHES\\natures\\big_tree.obj");
 	graphicObject.setMeshId(meshId);
+	textureId = rm.loadTexture("TEXTURES\\natures\\nature.png");
+	graphicObject.setTextureId(textureId);
 	graphicObject.setColor(vec4(0.2, 0.8, 0.2, 1));
 	graphicObject.setPosition(vec3(7.5, -0.75, 2.5));
 	graphicObject.setAngle(0.0);
@@ -47,6 +49,8 @@ void initGraphicObjects() {
 	// добавление графического объекта
 	meshId = rm.loadMesh("MESHES\\natures\\big_tree.obj");
 	graphicObject.setMeshId(meshId);
+	textureId = rm.loadTexture("TEXTURES\\natures\\nature.png");
+	graphicObject.setTextureId(textureId);
 	graphicObject.setColor(vec4(0.2, 0.8, 0.2, 1));
 	graphicObject.setPosition(vec3(-7.5, -0.75, 2.5));
 	graphicObject.setAngle(0.0);
@@ -54,6 +58,8 @@ void initGraphicObjects() {
 	// добавление графического объекта
 	meshId = rm.loadMesh("MESHES\\vehicles\\police_car.obj");
 	graphicObject.setMeshId(meshId);
+	textureId = rm.loadTexture("TEXTURES\\vehicles\\police_car.png");
+	graphicObject.setTextureId(textureId);
 	graphicObject.setColor(vec4(0.2, 0.2, 1.0, 1));
 	graphicObject.setPosition(vec3(+4.5, -2.15, +6.5));
 	graphicObject.setAngle(-115.0);
@@ -61,6 +67,8 @@ void initGraphicObjects() {
 	// добавление графического объекта
 	meshId = rm.loadMesh("MESHES\\vehicles\\police_car.obj");
 	graphicObject.setMeshId(meshId);
+	textureId = rm.loadTexture("TEXTURES\\vehicles\\police_car.png");
+	graphicObject.setTextureId(textureId);
 	graphicObject.setColor(vec4(0.23, 0.23, 1.0, 1));
 	graphicObject.setPosition(vec3(+4.25, -2.15, +10.5));
 	graphicObject.setAngle(+105.0);
@@ -68,6 +76,8 @@ void initGraphicObjects() {
 	// добавление графического объекта
 	meshId = rm.loadMesh("MESHES\\vehicles\\jeep.obj");
 	graphicObject.setMeshId(meshId);
+	textureId = rm.loadTexture("TEXTURES\\vehicles\\jeep_purple.png");
+	graphicObject.setTextureId(textureId);
 	graphicObject.setColor(vec4(0.95, 0.13, 0.13, 1));
 	graphicObject.setPosition(vec3(-1.25, -2.15, +9.0));
 	graphicObject.setAngle(+170.0);
