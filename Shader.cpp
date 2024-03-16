@@ -1,5 +1,5 @@
 #include "Shader.h"
-#define PRINT 1
+#define PRINT 0
 unsigned int Shader::currentProgram = 0;
 bool Shader::load(std::string veftexShaderFilename, std::string fragmentShaderFilename) {
 	program = glCreateProgram();

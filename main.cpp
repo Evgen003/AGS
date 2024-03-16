@@ -8,6 +8,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "IL/il.h"
+#include "IL/ilu.h"
+#include "IL/ilut.h"
+
+#include "Data.h"
 #include "Display.h"
 #include "Simulation.h"
 #include "Shader.h"
@@ -56,6 +61,12 @@ void main(int argc, char** argv)
 
 	// загрузка шейдера
 	shader.load("SHADER\\Example.vsh", "SHADER\\Example.fsh");
+
+
+	// инициализация библиотеки DevIL для загрузки изображений
+	ilInit();
+	iluInit();
+	ilutInit();
 
 	initData();
 

@@ -13,7 +13,6 @@ void Texture::load(std::string filename) {
 	wchar_t unicodeString[256];
 	wsprintf(unicodeString, L"%S", filename.c_str());
 	bool result = ilLoadImage(unicodeString);
-	cout << "BindIMG\n";
 	if (result) {
 		cout << "Texture " << filename << " open success\n";
 	}
